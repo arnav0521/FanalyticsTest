@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_61d7adb60d318fd9ea4c9c5c94575b4b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed;
+    top: 20px;
+    left: 50px;
+    z-index: 9999;
+    background: white;
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 5px;
+">
+    <label><b>Select School:</b></label><br>
+    <select id="schoolSelect" style="width: 240px;">
+        <option value="all">All Schools</option>
+        <option value="Alabama">Alabama</option><option value="Arizona State">Arizona State</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="Auburn">Auburn</option><option value="California">California</option><option value="Cincinnati">Cincinnati</option><option value="Clemson">Clemson</option><option value="Colorado">Colorado</option><option value="Florida State">Florida State</option><option value="Florida">Florida</option><option value="Georgia Tech">Georgia Tech</option><option value="Georgia">Georgia</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa State">Iowa State</option><option value="Iowa">Iowa</option><option value="Kansas State">Kansas State</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="LSU">LSU</option><option value="Louisville">Louisville</option><option value="Maryland">Maryland</option><option value="Michigan State">Michigan State</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi State">Mississippi State</option><option value="Missouri">Missouri</option><option value="NC State">NC State</option><option value="Nebraska">Nebraska</option><option value="North Carolina">North Carolina</option><option value="Ohio State">Ohio State</option><option value="Oklahoma State">Oklahoma State</option><option value="Oklahoma">Oklahoma</option><option value="Ole Miss">Ole Miss</option><option value="Oregon">Oregon</option><option value="Penn State">Penn State</option><option value="Purdue">Purdue</option><option value="Rutgers">Rutgers</option><option value="South Carolina">South Carolina</option><option value="Tennessee">Tennessee</option><option value="Texas A&M">Texas A&M</option><option value="Texas Tech">Texas Tech</option><option value="Texas">Texas</option><option value="UCF">UCF</option><option value="UCLA">UCLA</option><option value="Utah">Utah</option><option value="Virginia Tech">Virginia Tech</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
+    </select>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    var mapObj = map_61d7adb60d318fd9ea4c9c5c94575b4b;
+    var circles = [];
+    var cityData = [{"school": "California", "city": "San Francisco, CA", "lat": 37.7800771, "lon": -122.4201615, "level": 1, "archetype": "Disengaged Fans"}, {"school": "California", "city": "Los Angeles, CA", "lat": 34.052238, "lon": -118.243344, "level": 2, "archetype": "Disengaged Fans"}, {"school": "California", "city": "Berkeley, CA", "lat": 37.8690573, "lon": -122.2704634, "level": 3, "archetype": "Disengaged Fans"}, {"school": "Clemson", "city": "Greenville, SC", "lat": 34.850746, "lon": -82.398964, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Clemson", "city": "Clemson, SC", "lat": 34.688685, "lon": -82.834885, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Florida State", "city": "Tallahassee, FL", "lat": 30.440741, "lon": -84.278328, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Florida State", "city": "Miami, FL", "lat": 25.775084, "lon": -80.194702, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Florida State", "city": "Fort Lauderdale, FL", "lat": 26.1241631, "lon": -80.1435862, "level": 3, "archetype": "Regional Community Loyalists"}, {"school": "Georgia Tech", "city": "Atlanta, GA", "lat": 33.748547, "lon": -84.391502, "level": 1, "archetype": "Selective Affluents"}, {"school": "Louisville", "city": "Louisville, KY", "lat": 38.256078, "lon": -85.751569, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "NC State", "city": "Raleigh, NC", "lat": 35.7813033, "lon": -78.6416795, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "NC State", "city": "Charlotte, NC", "lat": 35.2237867, "lon": -80.8411413, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "North Carolina", "city": "Raleigh, NC", "lat": 35.7813033, "lon": -78.6416795, "level": 1, "archetype": "Established Traditionalists"}, {"school": "North Carolina", "city": "Chapel Hill, NC", "lat": 35.910262, "lon": -79.055474, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Virginia", "city": "Washington, DC", "lat": 38.8920621, "lon": -77.0199124, "level": 1, "archetype": "Selective Affluents"}, {"school": "Virginia", "city": "Charlottesville, VA", "lat": 38.0310605, "lon": -78.4742794, "level": 2, "archetype": "Selective Affluents"}, {"school": "Virginia", "city": "New York City, NY", "lat": 40.7130466, "lon": -74.0072301, "level": 3, "archetype": "Selective Affluents"}, {"school": "Virginia Tech", "city": "Washington, DC", "lat": 38.8920621, "lon": -77.0199124, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Virginia Tech", "city": "Blacksburg, VA", "lat": 37.2257798, "lon": -80.4101197, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Arizona", "city": "Tuscon, AZ", "lat": 32.221878, "lon": -110.971225, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Arizona", "city": "Phoenix, AZ", "lat": 33.448204, "lon": -112.0725848, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Arizona State", "city": "Phoenix, AZ", "lat": 33.448204, "lon": -112.0725848, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Arizona State", "city": "Los Angeles, CA", "lat": 34.052238, "lon": -118.243344, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Cincinnati", "city": "Cincinnati, OH", "lat": 39.12711, "lon": -84.51439, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Cincinnati", "city": "Columbus, OH", "lat": 39.962762, "lon": -82.996291, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Colorado", "city": "Denver, CO", "lat": 39.738453, "lon": -104.984853, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Colorado", "city": "Boulder, CO", "lat": 40.016871, "lon": -105.279624, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Iowa State", "city": "Des Moines, IA", "lat": 41.588822, "lon": -93.620309, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Iowa State", "city": "Ames, IA", "lat": 42.026802, "lon": -93.620181, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Kansas", "city": "Kansas City, KS", "lat": 39.1127, "lon": -94.626804, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Kansas", "city": "Lawrence, KS", "lat": 38.9731544, "lon": -95.2382481, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Kansas State", "city": "Kansas City, KS", "lat": 39.1127, "lon": -94.626804, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Kansas State", "city": "Manhattan, KS", "lat": 39.1866876, "lon": -96.5665999, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Oklahoma State", "city": "Tulsa, OK", "lat": 36.155327, "lon": -95.992083, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Oklahoma State", "city": "Oklahoma City, OK", "lat": 35.468494, "lon": -97.521264, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Texas Tech", "city": "Dallas Fort-Worth, TX", "lat": 32.587554, "lon": -97.198856, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Texas Tech", "city": "Lubbock, TX", "lat": 33.5836884, "lon": -101.8549534, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "UCF", "city": "Orlando, FL", "lat": 28.538331, "lon": -81.378879, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "UCF", "city": "Miami, FL", "lat": 25.775084, "lon": -80.194702, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Utah", "city": "Salt Lake City, UT", "lat": 40.758478, "lon": -111.888142, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "West Virginia", "city": "Morgan Town, WV", "lat": 39.6298107, "lon": -79.955946, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "West Virginia", "city": "Washington DC", "lat": 38.8920621, "lon": -77.0199124, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Illinois", "city": "Chicago, IL", "lat": 41.883229, "lon": -87.632398, "level": 1, "archetype": "Selective Affluents"}, {"school": "Illinois", "city": "Urbana, IL", "lat": 40.112458, "lon": -88.207457, "level": 2, "archetype": "Selective Affluents"}, {"school": "Illinois", "city": "Champaign, IL", "lat": 40.116328, "lon": -88.243522, "level": 3, "archetype": "Selective Affluents"}, {"school": "Indiana", "city": "Indianapolis, IN", "lat": 39.76845, "lon": -86.156212, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Indiana", "city": "Bloomington, IN", "lat": 39.166587, "lon": -86.534893, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Indiana", "city": "Chicago, IL", "lat": 41.883229, "lon": -87.632398, "level": 3, "archetype": "Established Traditionalists"}, {"school": "Iowa", "city": "Cedar Rapids, IA", "lat": 41.9780542, "lon": -91.6698616, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Iowa", "city": "Iowa City, IA", "lat": 41.6612397, "lon": -91.5301283, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Iowa", "city": "Chicago, IL", "lat": 41.883229, "lon": -87.632398, "level": 3, "archetype": "Regional Community Loyalists"}, {"school": "Maryland", "city": "Washington, DC", "lat": 38.8920621, "lon": -77.0199124, "level": 1, "archetype": "Selective Affluents"}, {"school": "Maryland", "city": "Baltimore, MD", "lat": 39.290443, "lon": -76.612333, "level": 2, "archetype": "Selective Affluents"}, {"school": "Michigan", "city": "Detroit, MI", "lat": 42.3329407, "lon": -83.0478365, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Michigan", "city": "New York City, NY", "lat": 40.7130466, "lon": -74.0072301, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Michigan State", "city": "Detroit, MI", "lat": 42.3329407, "lon": -83.0478365, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Michigan State", "city": "Lancing, MI", "lat": 42.733625, "lon": -84.553927, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Minnesota", "city": "Minneapolis, MN", "lat": 44.9774859, "lon": -93.2643669, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Minnesota", "city": "St.Paul, MN", "lat": 44.94441, "lon": -93.09327, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Nebraska", "city": "Lincoln, NE", "lat": 40.813599, "lon": -96.70261, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Nebraska", "city": "Omaha, NE", "lat": 41.258652, "lon": -95.937195, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Ohio State", "city": "Columbus, OH", "lat": 39.962762, "lon": -82.996291, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Ohio State", "city": "Cleveland, OH", "lat": 41.5051414, "lon": -81.6914575, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Oregon", "city": "Portland, OR", "lat": 45.516018, "lon": -122.681425, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Oregon", "city": "Eugene, OR", "lat": 44.052153, "lon": -123.091195, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Penn State", "city": "Philadelphia, PA", "lat": 39.9510605, "lon": -75.1656204, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Penn State", "city": "New York City, NY", "lat": 40.7130466, "lon": -74.0072301, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Purdue", "city": "Indianapolis, IN", "lat": 39.76845, "lon": -86.156212, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Purdue", "city": "Lafayette, IN", "lat": 40.417328, "lon": -86.890617, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Rutgers", "city": "New York City, NY", "lat": 40.7130466, "lon": -74.0072301, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Rutgers", "city": "New Brunswick, NJ", "lat": 40.4959469, "lon": -74.4441187, "level": 2, "archetype": "Established Traditionalists"}, {"school": "UCLA", "city": "Los Angeles, CA", "lat": 34.052238, "lon": -118.243344, "level": 1, "archetype": "Disengaged Fans"}, {"school": "UCLA", "city": "San Francisco, CA", "lat": 37.7800771, "lon": -122.4201615, "level": 2, "archetype": "Disengaged Fans"}, {"school": "Washington", "city": "Seattle, WA", "lat": 47.603229, "lon": -122.33028, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Washington", "city": "California", "lat": 36.374105693, "lon": -119.27023, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Wisconsin", "city": "Madison, WI", "lat": 43.073926, "lon": -89.385244, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Wisconsin", "city": "Milwaukee, WI", "lat": 43.041072, "lon": -87.909421, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Alabama", "city": "Tuscaloosa, AL", "lat": 33.2106838, "lon": -87.5655828, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Alabama", "city": "Birmingham AL", "lat": 33.5228587, "lon": -86.8077052, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Arkansas", "city": "Fayettville, AR", "lat": 36.061928, "lon": -94.160583, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Arkansas", "city": "Texas", "lat": 31.462733046, "lon": -99.33305009, "level": 2, "archetype": "Established Traditionalists"}, {"school": "Auburn", "city": "Columbus, AL", "lat": 33.758157, "lon": -86.753326, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Florida", "city": "Gainseville, FL", "lat": 29.6519756, "lon": -82.3250209, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Florida", "city": "Miami, FL", "lat": 25.775084, "lon": -80.194702, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Georgia", "city": "Atlanta, GA", "lat": 33.748547, "lon": -84.391502, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Georgia", "city": "Athens, GA", "lat": 33.957412, "lon": -83.376798, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Kentucky", "city": "Lexington, KY ", "lat": 38.046356, "lon": -84.497021, "level": 1, "archetype": "Established Traditionalists"}, {"school": "Kentucky", "city": "Louisville, KY", "lat": 38.256078, "lon": -85.751569, "level": 2, "archetype": "Established Traditionalists"}, {"school": "LSU", "city": "Baton Rouge, LA", "lat": 30.443319, "lon": -91.187488, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Mississippi State", "city": "Jackson, MS", "lat": 32.302897, "lon": -90.183488, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Mississippi State", "city": "Starkville, MS", "lat": 33.465865, "lon": -88.8102656, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Missouri", "city": "St. Louis, MO", "lat": 38.635355, "lon": -90.2009855, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Missouri", "city": "Columbus, MO", "lat": 38.856622, "lon": -93.891134, "level": 2, "archetype": "Regional Community Loyalists"}, {"school": "Oklahoma", "city": "Oklahoma City, OK", "lat": 35.468494, "lon": -97.521264, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Oklahoma", "city": "Norman, OK", "lat": 35.221051, "lon": -97.445943, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "South Carolina", "city": "Columbia, SC", "lat": 34.009286, "lon": -81.037094, "level": 1, "archetype": "Regional Community Loyalists"}, {"school": "Tennessee", "city": "Knoxville, TN", "lat": 35.9626444, "lon": -83.9167239, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Tennessee", "city": "Nashville, TN", "lat": 36.1663493, "lon": -86.7790541, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Texas", "city": "Austin, TX", "lat": 30.264979, "lon": -97.746598, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Texas", "city": "Houston, TX", "lat": 29.7608026, "lon": -95.3695062, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Texas A&M", "city": "Houston, TX", "lat": 29.7608026, "lon": -95.3695062, "level": 1, "archetype": "National Brand Fanatics"}, {"school": "Texas A&M", "city": "Dallas, TX", "lat": 32.7779765, "lon": -96.7962148, "level": 2, "archetype": "National Brand Fanatics"}, {"school": "Ole Miss", "city": "Oxford, MS", "lat": 34.3668, "lon": -89.518625, "level": 1, "archetype": "Regional Community Loyalists"}];
+
+    function getColor(archetype) {
+        if (archetype === "National Brand Fanatics") return "#d73027";
+        if (archetype === "Regional Community Loyalists") return "#1a9850";
+        if (archetype === "Established Traditionalists") return "#4575b4";
+        if (archetype === "Disengaged Fans") return "#984ea3";
+        if (archetype === "Selective Affluents") return "#fdae61";
+        return "#999999";
+    }
+
+    function getRadius(level) {
+        if (level === 1) return 120000;
+        if (level === 2) return 80000;
+        return 50000;
+    }
+
+    function getOpacity(level) {
+        if (level === 1) return 0.45;
+        if (level === 2) return 0.30;
+        return 0.18;
+    }
+
+    function drawCircles(selectedSchool) {
+        circles.forEach(function(circle) {
+            mapObj.removeLayer(circle);
+        });
+        circles = [];
+
+        cityData.forEach(function(item) {
+            if (selectedSchool === "all" || item.school === selectedSchool) {
+                var color = getColor(item.archetype);
+
+                var circle = L.circle([item.lat, item.lon], {
+                    radius: getRadius(item.level),
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: getOpacity(item.level),
+                    weight: 2
+                }).addTo(mapObj);
+
+                circle.bindTooltip(
+                    item.school + " - " + item.city + " - " + item.archetype
+                );
+
+                circles.push(circle);
+            }
+        });
+    }
+
+    document.getElementById("schoolSelect").addEventListener("change", function() {
+        drawCircles(this.value);
+    });
+
+    setTimeout(function() {
+        drawCircles("all");
+    }, 500);
+
+    var legend = L.control({position: 'bottomright'});
+    legend.onAdd = function () {
+        var div = L.DomUtil.create('div', 'info legend');
+
+        div.style.background = "white";
+        div.style.padding = "12px";
+        div.style.border = "2px solid gray";
+        div.style.borderRadius = "6px";
+        div.style.fontSize = "13px";
+        div.style.lineHeight = "20px";
+
+        div.innerHTML += "<b>Fanbase Archetypes</b><br>";
+        div.innerHTML += "<i style='background:#d73027;width:12px;height:12px;display:inline-block;margin-right:6px;'></i> National Brand Fanatics<br>";
+        div.innerHTML += "<i style='background:#1a9850;width:12px;height:12px;display:inline-block;margin-right:6px;'></i> Regional Community Loyalists<br>";
+        div.innerHTML += "<i style='background:#4575b4;width:12px;height:12px;display:inline-block;margin-right:6px;'></i> Established Traditionalists<br>";
+        div.innerHTML += "<i style='background:#984ea3;width:12px;height:12px;display:inline-block;margin-right:6px;'></i> Disengaged Fans<br>";
+        div.innerHTML += "<i style='background:#fdae61;width:12px;height:12px;display:inline-block;margin-right:6px;'></i> Selective Affluents<br>";
+        div.innerHTML += "<hr>";
+        div.innerHTML += "<b>City Rank Radius</b><br>";
+        div.innerHTML += "City 1 = largest/darkest<br>";
+        div.innerHTML += "City 2 = medium<br>";
+        div.innerHTML += "City 3 = smallest/lightest<br>";
+
+        return div;
+    };
+    legend.addTo(mapObj);
+
+});
+</script>
+    
+            <div class="folium-map" id="map_61d7adb60d318fd9ea4c9c5c94575b4b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_61d7adb60d318fd9ea4c9c5c94575b4b = L.map(
+                "map_61d7adb60d318fd9ea4c9c5c94575b4b",
+                {
+                    center: [39.5, -98.35],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 4,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_31e3fa783f4ff3122c52d842f6fc6f37 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_31e3fa783f4ff3122c52d842f6fc6f37.addTo(map_61d7adb60d318fd9ea4c9c5c94575b4b);
+        
+</script>
+</html>

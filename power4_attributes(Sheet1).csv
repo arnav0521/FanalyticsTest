@@ -1,5 +1,5 @@
 ﻿School,Conference,Attendance_Pct_FB,5_Year_Pct_Change,Majority_city,Instagram_Followers_FB (Thousands),Instagram_Followers_BB (Thousands),Donation_Revenue (Millions),Season_Ticket_Price,Win_Pct_Since_2003,Win_Val_AllTime_Fb,Win_Pct_AllTime_Fb,Graduate_Earnings(Thousands),Attendence_Pct_MBB,WBB_Capacity_Pct,Total_Revenue,Football_Revenue,MBB_Revenue,WBB_Revenue,Rights_Licensing,Football_Expense,MBB_Expense,WBB_Expense,Ticket_Sales_Pct,Football_Stadium_Capacity(22-25),Data_Complete,Alumni_amount,City 1,City 2,City 3,Occupation,Regional_occuptation,Regional_income,Regional _Populations
-California,ACC,56.01,-10.86,"San Francisco, CA",113,34,14.79,,50.9,0.546,54.6,96,30.3,,,,,,,,,,,65.25,NO,"503,599","San Fransisco, CA","Los Angeles, CA","Berkeley, CA",Business Development,,,
+California,ACC,56.01,-10.86,"San Francisco, CA",113,34,14.79,,50.9,0.546,54.6,96,30.3,,,,,,,,,,,65.25,NO,"503,599","San Francisco, CA","Los Angeles, CA","Berkeley, CA",Business Development,,,
 Clemson,ACC,97.11,-1.86,"Greenville, SC",797,102,71.81,,74.6,0.624,62.4,75,79.4,,,,,,,,,,,99.28,NO,"149,358","Greenville, SC","Clemson, SC",,Operations ,Retail Salesperson,"49,520","138,207"
 Florida State,ACC,97.92,5.52,"Miami, FL",555,94.7,53.18,,64.8,0.623,62.3,67,56.6,,,,,,,,,,,103.92,NO,"277,107","Tallahassee, FL","Miami, FL","Fort Lauderdale, FL",Business Development,Fast food and Counter Workers,"56,511","196,169"
 Georgia Tech,ACC,91.87,24.69,"Atlanta, GA",129,32.7,19.89,,53.8,0.581,58.1,119,53.7,,,,,,,,,,,66.87,NO,"250,843","Atlanta, GA",,,Engineering,Retail Salesperson,"88,165","498,715"
@@ -8,7 +8,7 @@ Miami,ACC,98.56,22.22,"New York City, NY",363,124,,,62.1,0.635,63.5,85,64.5,,,,,
 NC State,ACC,100,1.37,"Raleigh, NC",168,125,20.65,,54.7,0.516,51.6,76,65.8,,,,,,,,,,,98.71,NO,"236,116","Raleigh, NC","Charlotte, NC",,Engineering,Retail Salesperson,"85,060","467,665"
 North Carolina,ACC,100,3.42,"Raleigh, NC",309,612,23.57,,49.8,0.556,55.6,81,90.3,,,,,,,,,,,95.74,NO,"219,152","Raleigh, NC","Chapel Hill, NC",,Business Development,,,
 Pitt,ACC,75.8,5.96,"Pittsburg, PA",154,50.5,,,56.2,0.574,57.4,74,64.6,,,,,,,,,,,76.38,NO,"187,111","Pittsburg, PA",,,Business Development,Health care and Social Assistance,"66,954","302,971"
-Stanford,ACC,55.87,-13.01,"San Francisco, CA",108,29,,,53,0.566,56.6,125,40.7,,,,,,,,,,,57.14,NO,"372,167","San Fransisco, CA",India,"New York City, NY",Business Development,,,
+Stanford,ACC,55.87,-13.01,"San Francisco, CA",108,29,,,53,0.566,56.6,125,40.7,,,,,,,,,,,57.14,NO,"372,167","San Francisco, CA","New Delhi, India","New York City, NY",Business Development,,,
 Syracuse,ACC,90.23,2.33,"New York City, NY",143,185,,,41.1,0.56,56,73,54.6,,,,,,,,,,,77.8,NO,"159,509","New York City, NY","Syracuse, NY",,Business Development,Retail Salesperson,"51,770","148,620"
 Virginia,ACC,71.42,14.35,"Washington, DC",100,102,46.41,25,46.3,0.517,51.7,91,92.5,26.7,129.63,45.34,15.65,5.17,52.06,30.25,13.47,5.17,11,65.84,PARTIAL,"179,574","Washington, DC","Charlottesville, VA","New York City, NY",Business Development,,,
 Virginia Tech,ACC,95.19,-3.85,"Washington, DC",191,54.6,28.42,57.5,61.5,0.596,59.6,86,76.5,49.2,126.13,67.51,11.95,1.8,44.78,38.43,9.91,4.84,14,98.49,PARTIAL,"226,871","Washington, DC","Blacksburg, VA",,Engineering,Misc Assemblers ,"50,182","98,998"
@@ -37,22 +37,22 @@ Oregon,Big Ten,108.49,7.29,"Portland, Oregon",298,127,45.88,,74.5,0.584,58.4,62,
 Penn State,Big Ten,100.49,-0.22,"Philadelphia, PA",698,69,39.03,,67.2,0.689,68.9,77,51.8,,,,,,,,,,,101.47,NO,524803,"Philadelphia, PA","New York City, NY",,,Fast food and Counter Workers,,
 Purdue,Big Ten,92.09,-0.95,"Indianapolis, IN",130,189,23.08,,41.1,0.51,51,82,100,,,,,,,,,,,95.68,NO,360193,"Indianapolis, IN","Lafayette, IN",,,Misc Assemblers ,,
 Rutgers,Big Ten,92.38,8.62,"New York City, NY",138,81,8.72,,46.6,0.491,49.1,78,101.5,,,,,,,,,,,93.74,NO,265337,"New York City, NY","New Brunswick, NJ",,,Home health and personal care aids,,
-UCLA,Big Ten,41.56,-17.52,"Los Angeles, CA",248,227,16.01,,51.2,0.58,58,78,57.2,,,,,,,,,,,50.34,NO,"562,643","Los Angeles, CA",San Franciso,,Business Development,Home health and personal care aids,,
-USC,Big Ten,87.46,6.68,"Los Angeles, CA",325,145,,,71.7,0.694,69.4,95,42.5,,,,,,,,,,,91.55,NO,"381,262","Los Angeles, CA",San Franciso,,Business Development,Home health and personal care aids,,
+UCLA,Big Ten,41.56,-17.52,"Los Angeles, CA",248,227,16.01,,51.2,0.58,58,78,57.2,,,,,,,,,,,50.34,NO,"562,643","Los Angeles, CA","San Francisco, CA",,Business Development,Home health and personal care aids,,
+USC,Big Ten,87.46,6.68,"Los Angeles, CA",325,145,,,71.7,0.694,69.4,95,42.5,,,,,,,,,,,91.55,NO,"381,262","Los Angeles, CA","San Francisco, CA",,Business Development,Home health and personal care aids,,
 Washington,Big Ten,97.37,3.11,"Seattle, WA",261,66.5,36.06,,54.2,0.619,61.9,83,68.6,,,,,,,,,,,96.11,NO,"391,997","Seattle, WA",California,,Business Development,Software Developer,"112,400","781,000"
 Wisconsin,Big Ten,92.57,-6.27,"Madison, WI",340,211,33.67,,68.2,0.582,58.2,79,88.2,,,,,,,,,,,99.14,NO,"310,121","Madison, WI","Milwaukee, WI",,Business Development,Registered Nurses,,
 Alabama,SEC,99.99,0.28,"Birmingham, AL",1500,230,59.63,100,80.5,0.733,73.3,70,76.5,18.2,209.15,130.67,20.31,3.77,83.99,89.01,13.02,4.84,18,99.73,PARTIAL,187526,"Tuscaloosa, AL",Birmingham AL,,Business Development,,,
 Arkansas,SEC,91.54,6.32,"Feyetteville, AR",295,253,29.8,,48.8,0.572,57.2,69,98.2,,,,,,,,,,,93.63,NO,154607,"Fayettville, AR",Texas,,Operations ,Management,"70,600",271217
-Auburn,SEC,100,1.62,"Auburn, AL",448,231,41.97,,62.2,0.621,62.1,73,100,,,,,,,,,,,99.19,NO,197311,Columbus Area,,,Business Development,Management,"65,824",181000
+Auburn,SEC,100,1.62,"Auburn, AL",448,231,41.97,,62.2,0.621,62.1,73,100,,,,,,,,,,,99.19,NO,197311,"Columbus, AL",,,Business Development,Management,"65,824",181000
 Florida,SEC,101.78,3.2,"Miami, FL",573,207,54.65,,64.6,0.623,62.3,77,89.5,,,,,,,,,,,100.74,NO,376215,"Gainseville, FL","Miami, FL",,Business Development,,,
 Georgia,SEC,100,0.23,"Atlanta, GA",1200,112,83.85,,78.3,0.669,66.9,74,76.3,,,,,,,,,,,100.16,NO,203639,"Atlanta, GA","Athens, GA",,Business Development,,,
 Kentucky,SEC,94.72,-0.44,"Lexington, KY",239,574,42.5,,47,0.496,49.6,66,96.6,,,,,,,,,,,98.47,NO,"176,236","Lexington, KY ","Louisville, KY",,Business Development,,,
 LSU,SEC,99.27,2.29,"Baton Rouge, LA",1300,143,73.15,,74.6,0.49,49,67,69.9,,,,,,,,,,,79.85,NO,218524,"Baton Rouge, LA",,,Business Development,,,
 Mississippi State,SEC,88.19,1.21,"Starkville, MS",209,58.3,26.18,,48.4,0.49,49,59,74,,,,,,,,,,,84.29,NO,"119,087","Jackson, MS","Starkville, MS",,Operations ,Sales,"46,695",51896
-Missouri,SEC,91.54,3.1,"St. Louis, MO",225,92,31.63,,61.4,0.547,54.7,70,66.1,,,,,,,,,,,96.95,NO,199441,"St. Louis, MO",Columbus MO,,Business Development,Health care and Social Assistance,"72,758","191,746"
+Missouri,SEC,91.54,3.1,"St. Louis, MO",225,92,31.63,,61.4,0.547,54.7,70,66.1,,,,,,,,,,,96.95,NO,199441,"St. Louis, MO","Columbus, MO",,Business Development,Health care and Social Assistance,"72,758","191,746"
 Oklahoma,SEC,104.25,1.34,"Oklahoma City, OK",627,106,62.6,,77.3,0.723,72.3,73,64,,,,,,,,,,,104.4,NO,"174,964","Oklahoma City, OK","Norman, OK",,Business Development,,,
 South Carolina,SEC,102.29,4.21,"Columbia, SC",353,86.4,34.48,,55.2,0.509,50.9,68,59.5,,,,,,,,,,,100.66,NO,189192,"Columbia, SC",,,Business Development,Fast food and Counter Workers,"63,784",434956
 Tennessee,SEC,100,6.47,"Knoxville, TN",808,265,59,,57.8,0.67,67,68,87.7,,,,,,,,,,,99.66,NO,187713,"Knoxville, TN","Nashville, TN",,Business Development,,,
-Texas,SEC,102.24,3.93,"Austin, TX",1200,155,101.41,,69,0.704,70.4,79,112.5,,,,,,,,,,,101.53,NO,"488,312","Austin, TX",Houston TX,,Business development,General Managers,,
+Texas,SEC,102.24,3.93,"Austin, TX",1200,155,101.41,,69,0.704,70.4,79,112.5,,,,,,,,,,,101.53,NO,"488,312","Austin, TX","Houston, TX",,Business development,General Managers,,
 Texas A&M,SEC,103.33,5.36,"Houston, TX",449,74.2,86.1,,60.2,0.605,60.5,76,69.6,,,,,,,,,,,97.86,NO,"653,150","Houston, TX","Dallas, TX",,Business Development,,,
 Ole Miss,SEC,104.27,11.93,"Oxford, MS",373,68,36.73,,55.6,0.557,55.7,66,72.7,,,,,,,,,,,98.95,,"107,625","Oxford, MS",,,Business Development,Cashiers/Retail salespersons,"67,185",59597

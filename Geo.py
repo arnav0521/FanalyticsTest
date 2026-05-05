@@ -1,32 +1,49 @@
 import pandas as pd
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
+import time
+from geopy.geocoders import ArcGIS
+from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 
 df = pd.read_csv("power4_attributes(Sheet1).csv")
 
-geolocator = Nominatim(user_agent="power4_geocoder")
-geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+city_cols = ["City 1", "City 2", "City 3"]
 
-df = pd.read_csv("power4_attributes(Sheet1).csv")
+geolocator = ArcGIS(timeout=10)
 
 cache = {}
 
 def get_lat_lon(city):
-    if pd.isna(city) or city == "":
+    if pd.isna(city) or str(city).strip() == "":
         return None, None
+
+    city = str(city).strip()
+
     if city in cache:
         return cache[city]
 
-    location = geocode(city)
-    if location:
-        result = (location.latitude, location.longitude)
-    else:
+    try:
+        location = geolocator.geocode(city)
+
+        if location:
+            result = (location.latitude, location.longitude)
+            print(f"Found: {city} -> {result}")
+        else:
+            result = (None, None)
+            print(f"Not found: {city}")
+
+    except (GeocoderTimedOut, GeocoderUnavailable) as e:
+        print(f"Temporary error with {city}: {e}")
+        result = (None, None)
+
+    except Exception as e:
+        print(f"Error with {city}: {e}")
         result = (None, None)
 
     cache[city] = result
+    time.sleep(0.2)
     return result
 
-for col in ["City 1", "City 2", "City 3"]:
+
+for col in city_cols:
     df[[f"{col}_lat", f"{col}_lon"]] = df[col].apply(
         lambda x: pd.Series(get_lat_lon(x))
     )
