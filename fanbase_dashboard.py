@@ -151,10 +151,29 @@ if 'page' not in st.session_state:
 
 # Sidebar navigation
 st.sidebar.title("🏈 Navigation")
+
+# Check if we need to navigate to a specific page
+if 'nav_to_page' in st.session_state:
+    page_index = st.session_state.nav_to_page
+    del st.session_state.nav_to_page
+else:
+    page_index = 0
+
 page = st.sidebar.radio(
     "Select Page",
     ["Home", "Genotype Profiles", "School Detail", "Compare Schools", "Classify New School"],
-    index=0
+    index=page_index
+)
+
+# Scroll to top on page change
+import streamlit.components.v1 as components
+components.html(
+    """
+    <script>
+        window.parent.document.querySelector('section.main').scrollTo(0, 0);
+    </script>
+    """,
+    height=0,
 )
 
 # Main content
@@ -195,7 +214,10 @@ if page == "Home":
             """, unsafe_allow_html=True)
         
         with col2:
-            st.markdown(f"<a href='#' style='text-decoration:none; color: {data['color']};'>→ Use sidebar</a>", unsafe_allow_html=True)
+            if st.button("View →", key=f"btn_{name}", use_container_width=True):
+                st.session_state.nav_to_page = 1  # Genotype Profiles page
+                st.session_state.nav_to_genotype = name
+                st.rerun()
     
     st.markdown("---")
     
@@ -287,20 +309,36 @@ if page == "Home":
         for genotype_name, data in genotypes.items():
             if selected_school in data['schools']:
                 st.success(f"**{selected_school}** belongs to: **{genotype_name}**")
-                if st.button("View Genotype Profile"):
-                    st.session_state.selected_genotype = genotype_name
-                    st.session_state.page = 'genotype_detail'
-                    st.rerun()
+                
+                # Create a direct link
+                st.markdown("---")
+                col1, col2 = st.columns([1, 4])
+                with col1:
+                    if st.button("View Details", type="primary"):
+                        # Set BOTH the page AND the genotype
+                        st.session_state.nav_to_page = 1  # Index 1 = "Genotype Profiles"
+                        st.session_state.nav_to_genotype = genotype_name
+                        st.rerun()
+                with col2:
+                    st.markdown("*Click to see full genotype profile and schools*")
                 break
-
 elif page == "Genotype Profiles":
     st.markdown('<div class="main-header">Genotype Profiles</div>', unsafe_allow_html=True)
     st.markdown("---")
     
-    # Genotype selector
+    # Check if we navigated here from school lookup button
+    if 'nav_to_genotype' in st.session_state:
+        default_genotype = st.session_state.nav_to_genotype
+        default_index = list(genotypes.keys()).index(default_genotype)
+        del st.session_state.nav_to_genotype  # Clear the navigation flag
+    else:
+        default_index = 0
+    
+    # Genotype selector (pre-selects if coming from button)
     selected = st.selectbox(
         "Select a genotype to view detailed profile",
-        list(genotypes.keys())
+        list(genotypes.keys()),
+        index=default_index
     )
     
     if selected:
