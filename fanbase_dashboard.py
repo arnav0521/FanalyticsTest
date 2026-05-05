@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
 
 @st.cache_data
 def load_data():
@@ -69,9 +70,12 @@ numeric_cols = [
     "Football_Stadium_Capacity(22-25)"
 ]
 
-# Run KMeans
+# WITH THIS:
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df[numeric_cols])
+
 kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
-df["Cluster"] = kmeans.fit_predict(df[numeric_cols])
+df["Cluster"] = kmeans.fit_predict(X_scaled)
 
 # Map clusters to genotypes using majority vote
 cluster_to_genotype = {}
@@ -208,11 +212,55 @@ if page == "Home":
     """)
     
     # Display clustering visualization
-    try:
-        st.image("fanbase_cluster.png", use_column_width=True)
-        st.caption("Left: PCA visualization showing 5 distinct genotypes | Right: Silhouette analysis confirming k=5 optimal cluster separation")
-    except:
-        st.info("📊 Clustering visualizations will appear here after you upload clustering_visualization.png to GitHub")
+    import matplotlib.pyplot as plt
+    from sklearn.decomposition import PCA
+    
+    # Use the df that's already loaded at the top
+    X = df[numeric_cols].values
+
+    # Standardize the data (CRITICAL!)
+    scaler_pca = StandardScaler()
+    X_scaled_pca = scaler_pca.fit_transform(X)
+
+    # PCA on scaled data
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_scaled_pca)
+
+    # Plot with school labels
+    fig, ax = plt.subplots(figsize=(14, 10))
+    
+    # Define colors for each cluster
+    colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6']
+    
+    # Plot each cluster with different color
+    for cluster_id in df['Cluster'].unique():
+        cluster_mask = df['Cluster'] == cluster_id
+        cluster_points = X_pca[cluster_mask]
+        cluster_schools = df[cluster_mask]['School'].values
+        
+        # Scatter plot
+        ax.scatter(cluster_points[:, 0], cluster_points[:, 1], 
+                  c=colors[cluster_id], label=f'Cluster {cluster_id}', 
+                  s=100, alpha=0.7, edgecolors='black', linewidth=1)
+        
+        # Add school labels
+        for i, school in enumerate(cluster_schools):
+            ax.annotate(school,
+                       (cluster_points[i, 0], cluster_points[i, 1]),
+                       fontsize=8,
+                       alpha=0.8,
+                       ha='center',
+                       xytext=(0, 5),
+                       textcoords='offset points')
+    
+    ax.set_xlabel('Principal Component 1', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Principal Component 2', fontsize=12, fontweight='bold')
+    ax.set_title('K-Means Clustering (k=5) - PCA Visualization', fontsize=14, fontweight='bold')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    st.pyplot(fig)
     
     st.markdown("""
     **Why k=5?** Silhouette analysis revealed that 5 clusters maximize separation between groups 
@@ -549,10 +597,32 @@ elif page == "Classify New School":
         capacity = st.number_input("Football Stadium Capacity %", 0.0, 110.0, 85.0, 0.1)
     
     if st.button("Classify School", type="primary"):
-        new_data = pd.DataFrame([[change_5yr, fb_insta, bb_insta, donations, win_pct, earnings, mbb_att, capacity]], columns=numeric_cols)
-        cluster = kmeans.predict(new_data)[0]
-        predicted_genotype = cluster_to_genotype.get(cluster, "Unknown")
-        st.success(f"🏫 **{school_name}** is classified as: **{predicted_genotype}**")
+        if school_name:
+            # Create new data point
+            new_data = pd.DataFrame([[change_5yr, fb_insta, bb_insta, donations, win_pct, earnings, mbb_att, capacity]], 
+                                   columns=numeric_cols)
+            
+            # CRITICAL: Scale the new data using the same scaler
+            new_data_scaled = scaler.transform(new_data)
+            
+            # Predict cluster
+            cluster = kmeans.predict(new_data_scaled)[0]
+            predicted_genotype = cluster_to_genotype.get(cluster, "Unknown")
+            
+            st.success(f"🏫 **{school_name}** is classified as: **{predicted_genotype}**")
+            
+            # Optional: Show distances to each cluster
+            st.markdown("---")
+            st.markdown("### Distance to Each Genotype")
+            st.markdown("*(Lower distance = better match)*")
+            
+            distances = np.linalg.norm(kmeans.cluster_centers_ - new_data_scaled, axis=1)
+            
+            for i, (genotype, dist) in enumerate(zip(cluster_to_genotype.values(), distances)):
+                marker = " ← **BEST MATCH**" if i == cluster else ""
+                st.markdown(f"- **{genotype}**: {dist:.2f}{marker}")
+        else:
+            st.warning("Please enter a school name")
 
 # Footer
 st.markdown("---")
